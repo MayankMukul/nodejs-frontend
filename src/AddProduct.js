@@ -1,9 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
-
+import axios from 'axios';
 
 export default function AddProduct() {
   const [product, setProduct]= useState({});
+
+  const addProducts = async(product)=>{
+    const res = await axios.post('http://localhost:8080/products',product)
+    console.log(res);
+    // setProduct(res.data);
+  }
 
   const handleChange = (e)=>{
     setProduct({
@@ -14,6 +20,7 @@ export default function AddProduct() {
   const handleSubmit = (e)=>{
     e.preventDefault();
     console.log(product);
+    addProducts(product);
 
   }
   return (
