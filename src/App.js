@@ -1,15 +1,13 @@
 
 import './App.css';
 import { useState, useEffect } from 'react';
-// import axios from 'axios'
+import axios from 'axios';
 import ItemCard from './ItemCard';
-import Navbar from './Navbar';
-import Footer from './Footer';
 
 function App() {
 
   const [product, setProduct] = useState([{
-    id: 1,
+    _id: 1,
     title: "iPhone 9",
     description: "An apple mobile which is nothing like apple",
     price: 549,
@@ -28,53 +26,28 @@ function App() {
     ],
   }])
 
-  let data = [
-    {
-      id: 1,
-      title: "iPhone 9",
-      description: "An apple mobile which is nothing like apple",
-      price: 549,
-      discountPercentage: 12.96,
-      rating: 4.69,
-      stock: 94,
-      brand: "Apple",
-      category: "smartphones",
-      thumbnail: "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
-      images: [
-        "https://cdn.dummyjson.com/product-images/1/1.jpg",
-        "https://cdn.dummyjson.com/product-images/1/2.jpg",
-        "https://cdn.dummyjson.com/product-images/1/3.jpg",
-        "https://cdn.dummyjson.com/product-images/1/4.jpg",
-        "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
-      ],
-    },
-    {
-      id: 2,
-      title: "iPhone X",
-      description:
-        "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-      price: 899,
-      discountPercentage: 17.94,
-      rating: 4.44,
-      stock: 34,
-      brand: "Apple",
-      category: "smartphones",
-      thumbnail: "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
-      images: [
-        "https://cdn.dummyjson.com/product-images/2/1.jpg",
-        "https://cdn.dummyjson.com/product-images/2/2.jpg",
-        "https://cdn.dummyjson.com/product-images/2/3.jpg",
-        "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
-      ],
-    }
-  ];
+  
 
-  const getData = ()=>{
-    setProduct(data);
+  const getProducts = async()=>{
+    const res = await axios.get('http://localhost:8080/products')
+    // console.log(res);
+    setProduct(res.data);
   }
  
+  const handleClick = async (id)=>{
+    const res = await axios.delete(`http://localhost:8080/products/${id}`)
+    if(res.data._id){
+      setProduct(product.filter((p)=>p._id!==res.data._id))
+
+    }else{
+      console.log(res.data)
+    }
+    console.log(res)
+    console.log(id);
+  }
+
   useEffect(() => {
-    getData();
+    getProducts();
   }, []);
   return (
     <>
@@ -84,7 +57,7 @@ function App() {
         </h1>
         <div className="flex flex-wrap justify-center m-auto ">
         {product.map((item)=>{
-          return <ItemCard data = {item} key = {item.id}></ItemCard>
+          return <ItemCard data = {item} key = {item._id} handleClick = {handleClick}></ItemCard>
           
         })}
         </div>
