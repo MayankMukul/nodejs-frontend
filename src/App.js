@@ -29,21 +29,21 @@ function App() {
   
 
   const getProducts = async()=>{
-    const res = await axios.get('http://localhost:8080/products')
+    const res = await axios.get('/products')
     // console.log(res);
     setProduct(res.data);
   }
  
   const handleClick = async (id)=>{
-    const res = await axios.delete(`http://localhost:8080/products/${id}`)
+    const res = await axios.delete(`/products/${id}`)
     if(res.data._id){
       setProduct(product.filter((p)=>p._id!==res.data._id))
 
     }else{
-      console.log(res.data)
+      // console.log(res.data)
     }
-    console.log(res)
-    console.log(id);
+    // console.log(res)
+    // console.log(id);
   }
 
   useEffect(() => {
