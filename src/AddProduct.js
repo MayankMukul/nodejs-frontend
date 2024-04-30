@@ -19,7 +19,6 @@ export default function AddProduct() {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    // console.log(product);
     addProducts(product);
 
   }
@@ -28,16 +27,16 @@ export default function AddProduct() {
       <h1 className='bg-black text-white p-2 rounded'>Add Product Detail</h1>
       <form className='m-auto p-3 flex flex-col ' onSubmit={handleSubmit}>
         <label htmlFor="title">Title :</label>
-        <input className='border  m-1 p-1' type="text" id="title" name="title" placeholder='Title here...'  onChange={handleChange}/>
+        <input className='border  m-1 p-1' type="text" id="title" name="title" placeholder='Title here...'  onChange={handleChange} required/>
         <label htmlFor="brand">Brand :</label>
-        <input className='border m-1 p-1' type="text" id="brand" name="brand" placeholder='Brand here...' onChange={handleChange}/>
+        <input className='border m-1 p-1' type="text" id="brand" name="brand" placeholder='Brand here...' onChange={handleChange } required/>
         <label htmlFor="description">Discription :</label>
         <input className='border  m-1 p-1' type="text" id="description" name="description" placeholder='Description here...' onChange={handleChange}/>
         <label htmlFor="price">Price :</label>
-        <input className='border  m-1 p-1' type="number" id="price" name="price" placeholder='Price here...' onChange={handleChange}/>
+        <input className='border  m-1 p-1' type="number" id="price" name="price" placeholder='Price here...' onChange={handleChange} required/>
         <label htmlFor="category"  >Category : </label>
-        <select className='m-1 p-1  border' id='category' name='category'  onChange={handleChange}>
-          <option >Select  Category...</option>
+        <select className='m-1 p-1  border' id='category' name='category'  onChange={handleChange}  required>
+          <option value={null} >Select  Category...</option>
           <option value='Smartphones'>Smartphones</option>
           <option value='Laptops'>Laptops</option>
           <option value='Beauty'>Beauty</option>
